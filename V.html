@@ -17,7 +17,7 @@ body{
     overflow:hidden;
 }
 
-/* фон сердечки */
+/* фоновые сердца */
 .bg-heart{
     position:fixed;
     bottom:-20px;
@@ -29,6 +29,22 @@ body{
 @keyframes up{
     to{
         transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* блеск */
+.sparkle{
+    position:fixed;
+    top:-10px;
+    color:white;
+    font-size:14px;
+    animation:spark 5s linear;
+}
+
+@keyframes spark{
+    to{
+        transform:translateY(110vh);
         opacity:0;
     }
 }
@@ -50,7 +66,7 @@ body{
     transform:rotate(-45deg);
     border-radius:40px;
     box-shadow:0 20px 40px rgba(0,0,0,0.2);
-    animation:pop 0.8s ease;
+    animation:pop 0.8s ease, beat 3s ease-in-out infinite;
 }
 
 .heart-card:before,
@@ -73,7 +89,12 @@ body{
     top:0;
 }
 
-/* текст внутри */
+@keyframes beat{
+  0%,100%{transform:scale(1) rotate(-45deg);}
+  50%{transform:scale(1.03) rotate(-45deg);}
+}
+
+/* текст */
 .inner{
     position:absolute;
     inset:0;
@@ -82,28 +103,35 @@ body{
     justify-content:center;
     align-items:center;
     transform:rotate(45deg);
-    padding:40px;
+    padding:35px;
     color:white;
     text-align:center;
 }
 
-/* маленький эмодзи */
+/* имя */
+.name{
+    transition:.3s;
+}
+.name.glow{
+    text-shadow:0 0 8px rgba(255,255,255,.9);
+}
+
+/* котики */
 .mini{
-    width:38px;
+    width:72px;           /* ВОТ РАЗМЕР */
     margin-bottom:10px;
     transition:transform .25s;
 }
 
-/* анимация "пунь-пунь" */
 .wiggle{
     animation:wig 0.4s ease;
 }
 
 @keyframes wig{
   0%{transform:rotate(0deg);}
-  25%{transform:rotate(-12deg);}
-  50%{transform:rotate(12deg);}
-  75%{transform:rotate(-8deg);}
+  25%{transform:rotate(-10deg);}
+  50%{transform:rotate(10deg);}
+  75%{transform:rotate(-6deg);}
   100%{transform:rotate(0deg);}
 }
 
@@ -128,6 +156,11 @@ button{
     border-radius:14px;
     font-size:16px;
     margin-top:10px;
+    transition:transform .1s;
+}
+
+button:active{
+    transform:scale(0.97);
 }
 
 .main{
@@ -153,9 +186,9 @@ button{
 <div class="heart-card">
     <div class="inner">
 
-        <img src="emoji.png" class="mini" id="mini">
+        <img src="kitties.png" class="mini" id="mini">
 
-        <h2>Просто хотел сказать</h2>
+        <h2>Для тебя, <span class="name" id="name">Никуша</span></h2>
 
         <p id="text">
         Ты всегда будешь для меня самой особенной звёздочкой.  
@@ -177,16 +210,21 @@ let step=0;
 let finished=false;
 let heartInterval=null;
 
-function wiggle(){
+function react(){
  let e=document.getElementById("mini");
  e.classList.remove("wiggle");
  void e.offsetWidth;
  e.classList.add("wiggle");
+
+ let n=document.getElementById("name");
+ n.classList.remove("glow");
+ void n.offsetWidth;
+ n.classList.add("glow");
 }
 
 function next(){
 
- wiggle();
+ react();
 
  if(finished) return;
 
@@ -199,19 +237,19 @@ function next(){
 
  else if(step==2){
   document.getElementById("text").innerHTML=
-  "Ты самая лучшая и чудесная.<br>Никогда в этом не сомневайся";
+  "Ты самая лучшая и красивая.<br>Никогда в этом не сомневайся";
  }
 
  else{
   document.getElementById("text").innerHTML=
-  "Улыбнись там чуть-чуть.<br>И не забывай меня пожалуйста.";
+  "Улыбнись там чуть-чуть.<br>Вспоминай обо мне иногда, хорошо?";
   finished=true;
   startHearts();
  }
 }
 
 function hearts(){
- wiggle();
+ react();
  startHearts();
 }
 
@@ -226,9 +264,21 @@ function startHearts(){
    h.style.left=Math.random()*100+"vw";
    document.body.appendChild(h);
    setTimeout(()=>h.remove(),7000);
+
+   if(Math.random()>0.6){
+     let s=document.createElement("div");
+     s.className="sparkle";
+     s.innerHTML="✦";
+     s.style.left=Math.random()*100+"vw";
+     document.body.appendChild(s);
+     setTimeout(()=>s.remove(),5000);
+   }
+
  },350);
 }
 </script>
 
 </body>
 </html>
+
+
