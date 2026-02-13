@@ -8,61 +8,70 @@
 <style>
 body{
     margin:0;
-    background:linear-gradient(180deg,#e6d6ff,#b7c9ff);
     font-family:-apple-system,BlinkMacSystemFont,Arial;
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100dvh;
     overflow:hidden;
+
+    /* 💜 ПАСТЕЛЬНЫЙ ЛИЛОВО-РОЗОВЫЙ */
+    background:linear-gradient(180deg,#f1d4ff,#d6ccff,#c7d2ff);
 }
 
-/* фоновые сердечки */
+/* большое сердце на фоне */
+.bg-big-heart{
+    position:absolute;
+    width:520px;
+    height:520px;
+    background:#f3e8ff;
+    opacity:.45;
+    clip-path:path("M260 470 L40 240 A120 120 0 1 1 260 150 A120 120 0 1 1 480 240 Z");
+    z-index:0;
+}
+
+/* летающие сердечки */
 .bg-heart{
     position:fixed;
     bottom:-20px;
     font-size:18px;
-    color:#c59bff;
-    animation:up 7s linear;
+    color:#d291ff;
+    animation:up 8s linear;
+    opacity:.7;
 }
 @keyframes up{
     to{ transform:translateY(-120vh); opacity:0; }
 }
 
+/* контент */
 .wrap{
+    position:relative;
+    z-index:1;
     width:100%;
     display:flex;
     flex-direction:column;
     align-items:center;
-}
-
-/* 💜 НОРМАЛЬНОЕ СЕРДЦЕ */
-.heart-card{
-    width:340px;
-    height:300px;
-    background:#efe4ff;
-    clip-path:path("M170 290 L20 150 A80 80 0 1 1 170 90 A80 80 0 1 1 320 150 Z");
-    box-shadow:0 15px 35px rgba(0,0,0,0.15);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:25px;
     text-align:center;
 }
 
-/* контент */
-.inner{
-    max-width:220px;
+/* карточка */
+.card{
+    width:320px;
+    padding:25px;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
 }
 
 /* имя */
 .name{ transition:.3s; }
-.name.glow{ text-shadow:0 0 8px rgba(255,255,255,.9); }
+.name.glow{ text-shadow:0 0 10px white; }
 
 /* котики */
 .mini{
-    width:70px;
-    margin-bottom:8px;
+    width:75px;
+    margin-bottom:10px;
 }
 .wiggle{ animation:wig .4s ease; }
 
@@ -75,21 +84,20 @@ body{
 }
 
 h2{
-    margin:5px 0 8px 0;
-    color:#6d5cae;
-    font-size:18px;
+    margin:5px 0 10px 0;
+    color:#6b4bbd;
 }
 
 p{
-    font-size:14px;
-    line-height:1.35;
-    color:#5a4b8a;
+    font-size:15px;
+    line-height:1.4;
+    color:#5b4a99;
 }
 
 /* кнопка */
 .buttons{
     width:320px;
-    margin-top:20px;
+    margin-top:18px;
 }
 
 button{
@@ -98,8 +106,8 @@ button{
     border:none;
     border-radius:14px;
     font-size:16px;
-    background:#a97fff;
     color:white;
+    background:linear-gradient(90deg,#c084ff,#9b6bff);
     transition:transform .1s, box-shadow .2s;
 }
 
@@ -112,10 +120,12 @@ button:active{
 
 <body>
 
+<!-- большое декоративное сердце -->
+<div class="bg-big-heart"></div>
+
 <div class="wrap">
 
-<div class="heart-card">
-  <div class="inner">
+<div class="card">
 
     <img src="kitties.png" class="mini" id="mini">
 
@@ -126,7 +136,6 @@ button:active{
     Надеюсь она тебя немношко порадует.
     </p>
 
-  </div>
 </div>
 
 <div class="buttons">
@@ -136,6 +145,16 @@ button:active{
 </div>
 
 <script>
+/* ❤️ СЕРДЕЧКИ ВСЕГДА */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="bg-heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},250);  // чаще = больше
+
 let step = 0;
 
 const texts = [
@@ -169,26 +188,7 @@ function next(){
     document.getElementById("text").innerHTML = texts[step];
     document.getElementById("btn").innerText = buttons[Math.min(step, buttons.length-1)];
     step++;
-
-    if(step === texts.length){
-      startHearts();
-    }
   }
-}
-
-let heartInterval = null;
-
-function startHearts(){
-  if(heartInterval) return;
-
-  heartInterval = setInterval(()=>{
-    let h = document.createElement("div");
-    h.className = "bg-heart";
-    h.innerHTML = "❤";
-    h.style.left = Math.random()*100 + "vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),7000);
-  }, 350);
 }
 </script>
 
