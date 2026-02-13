@@ -8,7 +8,7 @@
 <style>
 body{
     margin:0;
-    background:linear-gradient(180deg,#ffd6e0,#fff1f4);
+    background:linear-gradient(180deg,#d9a7ff,#6f86d6);
     font-family:-apple-system,BlinkMacSystemFont,Arial;
     display:flex;
     justify-content:center;
@@ -22,31 +22,11 @@ body{
     position:fixed;
     bottom:-20px;
     font-size:18px;
-    color:#ff4d6d;
+    color:#d46bff;
     animation:up 7s linear;
 }
-
 @keyframes up{
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
-}
-
-/* блеск */
-.sparkle{
-    position:fixed;
-    top:-10px;
-    color:white;
-    font-size:14px;
-    animation:spark 5s linear;
-}
-
-@keyframes spark{
-    to{
-        transform:translateY(110vh);
-        opacity:0;
-    }
+    to{ transform:translateY(-120vh); opacity:0; }
 }
 
 /* контейнер */
@@ -62,11 +42,11 @@ body{
     position:relative;
     width:320px;
     height:290px;
-    background:#ff6b81;
+    background:#d46bff;
     transform:rotate(-45deg);
     border-radius:40px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.2);
-    animation:pop 0.8s ease, beat 3s ease-in-out infinite;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    animation:pop .8s ease, beat 3s ease-in-out infinite;
 }
 
 .heart-card:before,
@@ -75,26 +55,19 @@ body{
     position:absolute;
     width:320px;
     height:290px;
-    background:#ff6b81;
+    background:#d46bff;
     border-radius:50%;
 }
 
-.heart-card:before{
-    top:-160px;
-    left:0;
-}
-
-.heart-card:after{
-    left:160px;
-    top:0;
-}
+.heart-card:before{ top:-160px; left:0; }
+.heart-card:after{ left:160px; top:0; }
 
 @keyframes beat{
   0%,100%{transform:scale(1) rotate(-45deg);}
   50%{transform:scale(1.03) rotate(-45deg);}
 }
 
-/* текст */
+/* содержимое */
 .inner{
     position:absolute;
     inset:0;
@@ -109,24 +82,15 @@ body{
 }
 
 /* имя */
-.name{
-    transition:.3s;
-}
-.name.glow{
-    text-shadow:0 0 8px rgba(255,255,255,.9);
-}
+.name{ transition:.3s; }
+.name.glow{ text-shadow:0 0 10px rgba(255,255,255,.9); }
 
 /* котики */
 .mini{
-    width:72px;           /* ВОТ РАЗМЕР */
+    width:72px;
     margin-bottom:10px;
-    transition:transform .25s;
 }
-
-.wiggle{
-    animation:wig 0.4s ease;
-}
-
+.wiggle{ animation:wig .4s ease; }
 @keyframes wig{
   0%{transform:rotate(0deg);}
   25%{transform:rotate(-10deg);}
@@ -135,15 +99,15 @@ body{
   100%{transform:rotate(0deg);}
 }
 
-h2{
-    margin:0 0 10px 0;
-}
+h2{ margin:0 0 10px 0; }
 
 p{
     font-size:16px;
     line-height:1.4;
+    text-shadow:0 0 6px rgba(255,255,255,.5);
 }
 
+/* кнопка */
 .buttons{
     width:320px;
     margin-top:25px;
@@ -155,21 +119,14 @@ button{
     border:none;
     border-radius:14px;
     font-size:16px;
-    margin-top:10px;
-    transition:transform .1s;
+    background:#9b5cff;
+    color:white;
+    transition:transform .1s, box-shadow .2s;
 }
 
 button:active{
-    transform:scale(0.97);
-}
-
-.main{
-    background:#ff4d6d;
-    color:white;
-}
-
-.sec{
-    background:white;
+    transform:scale(.97);
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
 }
 
 @keyframes pop{
@@ -199,86 +156,70 @@ button:active{
 </div>
 
 <div class="buttons">
-    <button class="main" onclick="next()">нажми сюда</button>
-    <button class="sec" onclick="hearts()">и сюда тоже можно</button>
+    <button id="btn" onclick="next()">пунькни сюда</button>
 </div>
 
 </div>
 
 <script>
-let step=0;
-let finished=false;
-let heartInterval=null;
+let step = 0;
+
+const texts = [
+  "Иногда хочется просто напомнить:<br><b>ты милашка</b>",
+  "Ты самая лучшая и красивая.<br>Никогда в этом не сомневайся",
+  "Улыбнись там чуть-чуть.<br>Вспоминай обо мне иногда, хорошо?"
+];
+
+const buttons = [
+  "ещё разочек",
+  "и ещо",
+  "Ты хорошка"
+];
 
 function react(){
- let e=document.getElementById("mini");
- e.classList.remove("wiggle");
- void e.offsetWidth;
- e.classList.add("wiggle");
+  let e = document.getElementById("mini");
+  e.classList.remove("wiggle");
+  void e.offsetWidth;
+  e.classList.add("wiggle");
 
- let n=document.getElementById("name");
- n.classList.remove("glow");
- void n.offsetWidth;
- n.classList.add("glow");
+  let n = document.getElementById("name");
+  n.classList.remove("glow");
+  void n.offsetWidth;
+  n.classList.add("glow");
 }
 
 function next(){
+  react();
 
- react();
+  if(step < texts.length){
+    document.getElementById("text").innerHTML = texts[step];
+    document.getElementById("btn").innerText = buttons[Math.min(step, buttons.length-1)];
+    step++;
 
- if(finished) return;
-
- step++;
-
- if(step==1){
-  document.getElementById("text").innerHTML=
-  "Иногда хочется просто напомнить:<br><b>ты милашка</b>";
- }
-
- else if(step==2){
-  document.getElementById("text").innerHTML=
-  "Ты самая лучшая и красивая.<br>Никогда в этом не сомневайся";
- }
-
- else{
-  document.getElementById("text").innerHTML=
-  "Улыбнись там чуть-чуть.<br>Вспоминай обо мне иногда, хорошо?";
-  finished=true;
-  startHearts();
- }
+    if(step === texts.length){
+      startHearts();
+    }
+  }
 }
 
-function hearts(){
- react();
- startHearts();
-}
+let heartInterval = null;
 
 function startHearts(){
+  if(heartInterval) return;
 
- if(heartInterval) return;
-
- heartInterval=setInterval(()=>{
-   let h=document.createElement("div");
-   h.className="bg-heart";
-   h.innerHTML="❤";
-   h.style.left=Math.random()*100+"vw";
-   document.body.appendChild(h);
-   setTimeout(()=>h.remove(),7000);
-
-   if(Math.random()>0.6){
-     let s=document.createElement("div");
-     s.className="sparkle";
-     s.innerHTML="✦";
-     s.style.left=Math.random()*100+"vw";
-     document.body.appendChild(s);
-     setTimeout(()=>s.remove(),5000);
-   }
-
- },350);
+  heartInterval = setInterval(()=>{
+    let h = document.createElement("div");
+    h.className = "bg-heart";
+    h.innerHTML = "❤";
+    h.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+  }, 350);
 }
 </script>
 
 </body>
 </html>
+
 
 
