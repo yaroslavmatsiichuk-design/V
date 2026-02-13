@@ -17,7 +17,7 @@ body{
     overflow:hidden;
 }
 
-/* фоновые сердца */
+/* фоновые сердечки */
 .bg-heart{
     position:fixed;
     bottom:-20px;
@@ -36,14 +36,23 @@ body{
     align-items:center;
 }
 
-/* 💜 СЕРДЦЕ БЕЗ ПОВОРОТОВ */
+/* 💜 НОРМАЛЬНОЕ СЕРДЦЕ */
 .heart-card{
-    width:320px;
-    padding:35px 25px;
-    background:#e9dcff;
-    border-radius:30px;
+    width:340px;
+    height:300px;
+    background:#efe4ff;
+    clip-path:path("M170 290 L20 150 A80 80 0 1 1 170 90 A80 80 0 1 1 320 150 Z");
     box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
     text-align:center;
+}
+
+/* контент */
+.inner{
+    max-width:220px;
 }
 
 /* имя */
@@ -52,10 +61,11 @@ body{
 
 /* котики */
 .mini{
-    width:72px;
-    margin-bottom:10px;
+    width:70px;
+    margin-bottom:8px;
 }
 .wiggle{ animation:wig .4s ease; }
+
 @keyframes wig{
   0%{transform:rotate(0deg);}
   25%{transform:rotate(-10deg);}
@@ -65,25 +75,26 @@ body{
 }
 
 h2{
-    margin:5px 0 10px 0;
+    margin:5px 0 8px 0;
     color:#6d5cae;
+    font-size:18px;
 }
 
 p{
-    font-size:16px;
-    line-height:1.4;
+    font-size:14px;
+    line-height:1.35;
     color:#5a4b8a;
 }
 
 /* кнопка */
 .buttons{
     width:320px;
-    margin-top:18px;
+    margin-top:20px;
 }
 
 button{
     width:100%;
-    padding:16px;
+    padding:15px;
     border:none;
     border-radius:14px;
     font-size:16px;
@@ -104,16 +115,18 @@ button:active{
 <div class="wrap">
 
 <div class="heart-card">
+  <div class="inner">
 
     <img src="kitties.png" class="mini" id="mini">
 
     <h2>Для тебя, <span class="name" id="name">Никуша</span></h2>
 
     <p id="text">
-    Ты всегда будешь для меня самой особенной звёздочкой.  
-    И я рад, что ты есть, продолжай сиять.
+    Моя маленькая тебе валентинка, прими её пожалуйста.  
+    Надеюсь она тебя немношко порадует.
     </p>
 
+  </div>
 </div>
 
 <div class="buttons">
@@ -126,15 +139,15 @@ button:active{
 let step = 0;
 
 const texts = [
-  "Иногда хочется просто напомнить:<br><b>ты милашка</b>",
+  "Ты всегда будешь для меня самой особенной звёздочкой.<br> И я рад, что ты есть, продолжай сиять.",
   "Ты самая лучшая и красивая.<br>Никогда в этом не сомневайся",
-  "Улыбнись там чуть-чуть.<br>Вспоминай обо мне иногда, хорошо?"
+  "Улыбнись там чуть-чуть.<br>И вспоминай обо мне иногда, хорошо?"
 ];
 
 const buttons = [
   "ещё разочек",
   "и ещо",
-  "Ты хорошка"
+  "можно трясти кисов"
 ];
 
 function react(){
@@ -181,4 +194,3 @@ function startHearts(){
 
 </body>
 </html>
-
