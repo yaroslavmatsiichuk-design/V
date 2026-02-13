@@ -8,7 +8,7 @@
 <style>
 body{
     margin:0;
-    background:linear-gradient(180deg,#d9a7ff,#6f86d6);
+    background:linear-gradient(180deg,#e6d6ff,#b7c9ff);
     font-family:-apple-system,BlinkMacSystemFont,Arial;
     display:flex;
     justify-content:center;
@@ -22,14 +22,13 @@ body{
     position:fixed;
     bottom:-20px;
     font-size:18px;
-    color:#d46bff;
+    color:#c59bff;
     animation:up 7s linear;
 }
 @keyframes up{
     to{ transform:translateY(-120vh); opacity:0; }
 }
 
-/* контейнер */
 .wrap{
     width:100%;
     display:flex;
@@ -37,53 +36,19 @@ body{
     align-items:center;
 }
 
-/* сердце */
+/* 💜 СЕРДЦЕ БЕЗ ПОВОРОТОВ */
 .heart-card{
-    position:relative;
     width:320px;
-    height:290px;
-    background:#d46bff;
-    transform:rotate(-45deg);
-    border-radius:40px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.25);
-    animation:pop .8s ease, beat 3s ease-in-out infinite;
-}
-
-.heart-card:before,
-.heart-card:after{
-    content:"";
-    position:absolute;
-    width:320px;
-    height:290px;
-    background:#d46bff;
-    border-radius:50%;
-}
-
-.heart-card:before{ top:-160px; left:0; }
-.heart-card:after{ left:160px; top:0; }
-
-@keyframes beat{
-  0%,100%{transform:scale(1) rotate(-45deg);}
-  50%{transform:scale(1.03) rotate(-45deg);}
-}
-
-/* содержимое */
-.inner{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    transform:rotate(45deg);
-    padding:35px;
-    color:white;
+    padding:35px 25px;
+    background:#e9dcff;
+    border-radius:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
     text-align:center;
 }
 
 /* имя */
 .name{ transition:.3s; }
-.name.glow{ text-shadow:0 0 10px rgba(255,255,255,.9); }
+.name.glow{ text-shadow:0 0 8px rgba(255,255,255,.9); }
 
 /* котики */
 .mini{
@@ -99,18 +64,21 @@ body{
   100%{transform:rotate(0deg);}
 }
 
-h2{ margin:0 0 10px 0; }
+h2{
+    margin:5px 0 10px 0;
+    color:#6d5cae;
+}
 
 p{
     font-size:16px;
     line-height:1.4;
-    text-shadow:0 0 6px rgba(255,255,255,.5);
+    color:#5a4b8a;
 }
 
 /* кнопка */
 .buttons{
     width:320px;
-    margin-top:25px;
+    margin-top:18px;
 }
 
 button{
@@ -119,19 +87,14 @@ button{
     border:none;
     border-radius:14px;
     font-size:16px;
-    background:#9b5cff;
+    background:#a97fff;
     color:white;
     transition:transform .1s, box-shadow .2s;
 }
 
 button:active{
     transform:scale(.97);
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-@keyframes pop{
-    from{transform:scale(.8) rotate(-45deg); opacity:0;}
-    to{transform:scale(1) rotate(-45deg);}
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
 }
 </style>
 </head>
@@ -141,18 +104,16 @@ button:active{
 <div class="wrap">
 
 <div class="heart-card">
-    <div class="inner">
 
-        <img src="kitties.png" class="mini" id="mini">
+    <img src="kitties.png" class="mini" id="mini">
 
-        <h2>Для тебя, <span class="name" id="name">Никуша</span></h2>
+    <h2>Для тебя, <span class="name" id="name">Никуша</span></h2>
 
-        <p id="text">
-        Ты всегда будешь для меня самой особенной звёздочкой.  
-        И я рад, что ты есть, продолжай сиять.
-        </p>
+    <p id="text">
+    Ты всегда будешь для меня самой особенной звёздочкой.  
+    И я рад, что ты есть, продолжай сиять.
+    </p>
 
-    </div>
 </div>
 
 <div class="buttons">
@@ -220,6 +181,4 @@ function startHearts(){
 
 </body>
 </html>
-
-
 
